@@ -1,7 +1,7 @@
 # Chemistrable
 # Python 3.6.0
 
-######**Definition**
+######Definition
 
 **Chemistrable:** a word is Chemistrable if and only if it can be written as a combination of symbols of chemical elements on the Mendeleev table.
 
