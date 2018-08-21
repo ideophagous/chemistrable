@@ -13,30 +13,36 @@ def get_elements():
 CHEM_ELEMENTS = get_elements()
 
 def duplicate_combination(combinations,index):
-    
     combinations.append(deepcopy(combinations[index]))
-    #print(combinations)
     return combinations
 
 def explore(combinations,main_index,word):
     index = combinations[main_index][1]
     mendv = CHEM_ELEMENTS
     sym_one = False
+    deadend_1 = False
+    deadend_2 = False
     if word[index].upper() in mendv:
         combinations[main_index][0].append(word[index])
         combinations[main_index][1]+=1
         sym_one = True
-        print(word[index]+' added to '+str(combinations)+' with '+str(sym_one))
+    else:
+       deadend_1 = True
     if index<len(word)-1 and word[index:index+2].upper() in mendv:
         if sym_one:
             combinations = duplicate_combination(combinations,main_index)
-            combinations[main_index+1][0][-1] = word[index:index+2]
-            combinations[main_index+1][1]+=1
-            print(word[index:index+2]+' added to '+str(combinations))
+            combinations[-1][0][-1] = word[index:index+2]
+            combinations[-1][1]+=1
         else:
             combinations[main_index][0].append(word[index:index+2])
             combinations[main_index][1]+=2
-            print(word[index:index+2]+' added to '+str(combinations))
+    else:
+        deadend_2 = True
+    if deadend_1 and deadend_2:
+        try:
+            del combinations[main_index]
+        except:
+            pass
     return combinations
     
 
@@ -48,17 +54,10 @@ def chemistrable(word):
     i = 0
  
     while i<len(combinations):
-        #print(i)
         if combinations[i][1]!=len(word):
             combinations = explore(combinations,i,word)
-            '''
-            if new_combinations == combinations:
-                print('in')
-                i+=1
-            '''
         else:
             i+=1
-    #print(combinations)
     i = 0
     while i<len(combinations):
         if len(combinations)==0:
@@ -72,21 +71,12 @@ def chemistrable(word):
             
         
 if __name__=='__main__':
-    #print(get_elements())
-    '''combinations = []
-    combinations.append([[],0])
 
-    print(explore(combinations,0,'sarmg'.upper()))
-    print(explore(combinations,0,'sarmg'.upper()))
-    print(explore(combinations,0,'sarmg'.upper()))'''
-
-    word = 'carbine'
+    word = input()
     combinations = chemistrable(word)
-    '''
     if len(combinations) == 0:
         print("'"+word+"'"+' is not chemistrable!')
     else:
         for combination in combinations:
             print(combination[0])
-    
-    '''
+
