@@ -2,6 +2,7 @@
 # Python 3.6.0
 
 ######**Definition**
+
 **Chemistrable:** a word is Chemistrable if and only if it can be written as a combination of symbols of chemical elements on the Mendeleev table.
 
 **chemistrable.py**: Finds combinations of chemical elements symbols that form a given word, and determines if a given word is 'Chemistrable' or not.
